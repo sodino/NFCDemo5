@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="lab.sodino.nfc"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk android:minSdkVersion="14"/>
+    <uses-permission android:name="READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.NFC" />
+    <!-- 对于手Q来说，required应为false -->
+    <uses-feature android:name="android.hardware.nfc" android:required="false"/>
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="lab.sodino.nfc.MainActivity"
+            android:label="@string/app_name" 
+            android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+			<intent-filter>
+                <action android:name="android.nfc.action.NDEF_DISCOVERED" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="application/lab.sodino.nfc" />
+            </intent-filter>
+        </activity>
+        <!-- <activity android:name="com.android.apps.tag.TagViewer"
+            android:theme="@android:style/Theme.NoTitleBar"
+            android:launchMode="singleTop">
+            Catch the generic intent so we can display something for unknown tags
+            <intent-filter>
+                <action android:name="android.nfc.action.TAG_DISCOVERED"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+
+            Offer to display anything with NDEF data
+            <intent-filter>
+                <action android:name="android.nfc.action.TECH_DISCOVERED"/>
+            </intent-filter>
+
+            <meta-data android:name="android.nfc.action.TECH_DISCOVERED"
+                android:resource="@xml/filter_nfc">
+            </meta-data>
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <data android:mimeType="vnd.android.cursor.item/ndef_msg"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity> -->
+        <activity android:name="lab.sodino.nfc.TagReadWriteActivity"
+            android:launchMode="singleTop">
+            <intent-filter>
+			    <action android:name="android.nfc.action.NDEF_DISCOVERED" ></action>
+			    <category android:name="android.intent.category.DEFAULT" ></category>
+			    <data android:mimeType="text/plain" ></data>
+			</intent-filter> 
+        </activity>
+    </application>
+
+</manifest>
